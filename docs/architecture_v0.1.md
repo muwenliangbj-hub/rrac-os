@@ -1,24 +1,26 @@
 # RRAC-OS Architecture v0.1
 
-## Goal
-Create an intelligent operating system for embodied AI.
+## 1. RRAC 是什么？
+RRAC (Robot Reasoning & Acting Component) 是一个专为人形机器人设计的模块化、可扩展的操作系统。它的核心目标是实现感知、认知、学习与执行能力的解耦与动态热插拔。
 
-## Core
-- Scheduler
-- Memory
-- Knowledge
-- Reasoning
-- Learning
+## 2. 为什么要做 RRAC？
+为了解决人形机器人开发中系统逻辑复杂、软硬件耦合严重的问题。RRAC 允许开发者像管理插件一样管理机器人的“能力”，从而实现机器人功能的快速迭代与进化。
 
-## Plugins
-- Vision
-- Audio
-- Action
-- Exploration
-- Risk
+## 3. RRAC 架构分层
+RRAC 采用四层架构设计，确保系统高度模块化：
+* **Kernel (核心层)**：系统的生命中枢，负责任务调度、进程管理与稳定性监控。
+* **Capability Manager (能力管理层)**：负责核心能力的生命周期管理（安装、升级、删除、替换）。
+* **Service Layer (服务层)**：承载上层应用逻辑，如任务队列与系统状态监控。
+* **Hardware Interface (硬件接口层)**：负责与底层传感器及执行器的协议对接，将物理数据流转为 RRAC 可理解的抽象信号。
 
-## Future
-- Robot
-- Drone
-- Scientific Explorer
-- Space Explorer
+## 4. 各层职责简述
+* **Kernel**：维持系统运行，确保在任务过载时资源调度依然稳定。
+* **Capability**：将 Vision、Audio、Memory 等能力独立封装为独立的软件单元。
+* **Service**：处理复杂逻辑的协同，提供系统 API。
+* **Hardware Interface**：硬件数据的“翻译官”，确保软硬件通信的高效可靠。
+
+## 5. 数据如何流动？
+1. **感知输入**：由 `Hardware Interface` 获取物理信号，转化为抽象数据。
+2. **能力处理**：数据经由 `Capability` 模块（如 Vision 识别物体，Memory 存储记忆）。
+3. **调度决策**：`Kernel` 根据当前任务优先级和资源状态，触发 `Service` 进行协同。
+4. **动作执行**：最终结果通过 `Hardware Interface` 转化为电机或执行机构的物理动作。
